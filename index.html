@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Professional Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --text-color: #333;
+            --bg-color: #f4f4f4;
+            --card-bg: #fff;
+            --header-bg: #fff;
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-color: #3498db;
+            --secondary-color: #34495e;
+            --text-color: #f4f4f4;
+            --bg-color: #2c3e50;
+            --card-bg: #34495e;
+            --header-bg: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--header-bg);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        #showcase {
+            background: url('https://source.unsplash.com/random/1920x1080?technology') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        #showcase::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        #showcase * {
+            z-index: 10;
+        }
+
+        #showcase h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        #showcase p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-bar {
+            width: 100%;
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+
+        #projects .card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #projects .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        #projects .card .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        #projects .card:hover .overlay {
+            opacity: 1;
+        }
+
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        #contact form input,
+        #contact form textarea {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #contact form textarea {
+            height: 150px;
+        }
+
+        footer {
+            background: var(--secondary-color);
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        #theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            header .container {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+            }
+
+            nav ul li {
+                margin-left: 1rem;
+            }
+
+            #showcase h1 {
+                font-size: 3rem;
+            }
+
+            #showcase p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Your Name</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><button id="theme-toggle"><i class="fas fa-moon"></i></button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <h1>Welcome to My Portfolio</h1>
+        <p>I'm a AI/ML intern passionate about the field of Machine learning and its sub-section applications.</p>
+        <a href="#contact" class="btn">Get In Touch</a>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>Hello! I'm Anushree Asthana, an AI/ML intern. With experience in AI, ML and Deep learning at several companies including a startup as well as 7 certifications in ML, AI, etc I specialize in using LLMs, various models, NNs and algorithms. My passion lies in the upcoming field of AI applications in the industries and its integration for real world use cases and I'm always eager to take on new challenges and learn cutting-edge technologies. I am pursuing a Btech Bioinformatics degree and done three internships on the side. My cumulative GPA has been 9.8. Apart from that I have also participated in various events and organised an AI event with my colleagues as well. In soft-skills, I am a team-player and have been a good leader due to my background of organizing events. Apart from that I'm very flexible with my mindset so that I can configure it with respect to the workflow. My strengths also include being a good learner too.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>My Skills</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Generative AI</h3>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
+                </div>
+                <div class="card">
+                    <h3>LLMs</h3>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                </div>
+                <div class="card">
+                    <h3>Machine learning</h3>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
+                </div>
+                <div class="card">
+                    <h3>Deep learning</h3>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>My Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://source.unsplash.com/random/400x300?website" alt="Project 1">
+                    <h3>Logo-generator</h3>
+                    <p>This project is an AI-driven model that empowers users to effortlessly create unique and professional logos. Trained on a T4 GPU using stable diffusion and diffusers library. Uses accelerate and transformers as well.</p>
+                    <div class="overlay">
+                        <a href="https://github.com/InannaxX07/Log-en/tree/main" class="btn">View Project</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://source.unsplash.com/random/400x300?app" alt="Project 2">
+                    <h3>LSTM stock price prediction</h3>
+                    <p>Implementing a time series forecasting model using a combination of LSTM (Long Short-Term Memory) neural networks and Prophet, Facebook's time series forecasting tool.</p>
+                    <div class="overlay">
+                        <a href="https://github.com/InannaxX07/LSTM-stock-price-prediction" class="btn">View Project</a>
+                    </div>
+                </div>
+               </div>
+                <div class="card">
+                    <img src="https://source.unsplash.com/random/400x300?app" alt="Project 2">
+                    <h3>Cryptocurrency data scraper</h3>
+                    <p>Cryptocurrency Data Scraper/ Extractor using Python Playwright and save it to PostgreSQL and use different libraries in python to create an ETL Pipelines. Uses Playwright for scraping, PostgreSQL for the database, Psycopg2 driver for connection</p>
+                    <div class="overlay">
+                        <a href="https://github.com/InannaxX07/Cryptocurrency-Data-Scraper" class="btn">View Project</a>
+                    </div>
+                </div>
+                </div>
+                <div class="card">
+                    <img src="https://source.unsplash.com/random/400x300?app" alt="Project 2">
+                    <h3>Whisper AI model used for ASR implementation using Kathbath dataset (for Hindi)</h3>
+                    <p>This project uses Whisper by OpenAI to perform ASR (Automatic Speech Recognition) on the kathbath dataset to produce a WER (Word Error Rate) of 0.104.</p>
+                    <div class="overlay">
+                        <a href="https://github.com/InannaxX07/jupyter-projects/blob/main/notebook_whisper.ipynb" class="btn">View Project</a>
+                    </div>
+                </div>
+      
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Anushree Asthana. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://github.com/InannaxX07"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/anushree-asthana-20b447229/"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.skill-progress');
+        const animateSkills = () => {
+            skillBars.forEach(bar => {
+                const rect = bar.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    bar.style.width = bar.parentElement.dataset.progress;
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateSkills);
+        animateSkills(); // Initial check
+
+        // Form submission (you would typically handle this with backend code)
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            form.reset();
+        });
+    </script>
+</body>
+</html>
